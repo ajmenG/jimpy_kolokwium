@@ -1,0 +1,27 @@
+POLECENIE: Proszę wyjaśnić, co to jest makefile i jakie funkcje może pełnić.
+
+Makefile to plik tekstowy, który definiuje reguły automatyzujące proces kompilacji projektów w języku C przy użyciu narzędzia make. Umożliwia określenie, które pliki wynikowe (np. plik wykonywalny) mają być stworzone, jakie pliki źródłowe i nagłówkowe są ich zależnościami, oraz jakie polecenia mają być wykonane, aby zbudować projekt.
+
+Dzięki Makefile można zoptymalizować proces kompilacji – narzędzie make sprawdza daty modyfikacji plików i kompiluje tylko te, które zostały zmienione, co znacznie oszczędza czas przy większych projektach. W Makefile można zdefiniować zmienne (np. CC dla kompilatora czy CFLAGS dla flag kompilacji), co ułatwia modyfikowanie ustawień projektu. Przykładowa reguła w Makefile dla języka C może wyglądać tak:
+
+makefile
+
+CC = gcc
+CFLAGS = -Wall -O2
+program: main.o utils.o
+    $(CC) $(CFLAGS) -o program main.o utils.o
+
+main.o: main.c utils.h
+    $(CC) $(CFLAGS) -c main.c
+
+utils.o: utils.c utils.h
+    $(CC) $(CFLAGS) -c utils.c
+
+clean:
+    rm -f *.o program
+
+Tutaj make najpierw kompiluje pliki .c do .o, a następnie tworzy plik wykonywalny. Cel clean służy do usuwania plików tymczasowych i wyniku kompilacji. Makefile jest kluczowym narzędziem w projektach w języku C, szczególnie w przypadku dużych kodów z wieloma zależnościami.
+
+flaga -c: compile only
+flaga -Wall: ostrzega o nie uzytych zmiennych itp
+flaga -O2: optymalizuje kod
